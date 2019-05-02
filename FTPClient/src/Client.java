@@ -40,7 +40,7 @@ public class Client
 
         try
         {
-            // ---
+            // Start of file download.
             do {
                 response.append(inputFromServer.readLine());
                 System.out.println(response);
@@ -72,7 +72,6 @@ public class Client
                 response.append(inputFromServer.readLine());
 
                 if (response.toString().indexOf("227") == 0) {
-                    System.out.println("1");
                     fileTransfer = new FileTransfer(response.toString());
                 }
             } while (inputFromServer.ready());
@@ -95,30 +94,143 @@ public class Client
 
             System.out.println(response);
             // ---
-//            TimeUnit.SECONDS.sleep(delay);
-//            // ---
-//            line = "CWD /upload";
-//            out.writeBytes(line + '\n');
-//
-//            response.setLength(0);
-//            response.append(inputFromServer.readLine());
-//
-//            System.out.println(response);
-//            // ---
-//            TimeUnit.SECONDS.sleep(delay);
-//            // ---
-//            line = "STOR File.txt";
-//
-//            out.writeBytes(line + '\n');
-//
-//            TimeUnit.SECONDS.sleep(delay);
-//
-//            fileTransfer.uploadFile();
-//
-//            response.setLength(0);
-//            response.append(inputFromServer.readLine());
-//
-//            System.out.println(response);
+            TimeUnit.SECONDS.sleep(delay);
+            // ---
+            line = "QUIT";
+            out.writeBytes(line + '\n');
+
+            response.setLength(0);
+            do {
+                response.append(inputFromServer.readLine());
+                System.out.println(response);
+            } while (inputFromServer.ready());
+
+            System.out.println(response);
+            // ---
+
+            try
+            {
+                inputFromUser.close();
+                out.close();
+                socket.close();
+                System.out.println("Close");
+            }
+            catch(IOException i)
+            {
+                System.out.println(i);
+            }
+
+            // End of file download.
+            System.out.println("End of file download. Wait for file upload.");
+            TimeUnit.SECONDS.sleep(5);
+            // ---
+
+
+
+            // Start of file upload.
+            System.out.println("Start of file upload.");
+
+            try
+            {
+                inputFromUser = new BufferedReader(new InputStreamReader(System.in));
+                socket = new Socket(address, port);
+                System.out.println("Connected");
+                out = new DataOutputStream(socket.getOutputStream());
+                inputFromServer = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+            }
+            catch(UnknownHostException u)
+            {
+                u.printStackTrace();
+            }
+            catch(IOException i)
+            {
+                i.printStackTrace();
+            }
+
+            do {
+                response.append(inputFromServer.readLine());
+                System.out.println(response);
+            } while (inputFromServer.ready());
+
+            out.writeBytes(username + '\n');
+
+            response.setLength(0);
+            response.append(inputFromServer.readLine());
+
+            System.out.println(response);
+            // ---
+            TimeUnit.SECONDS.sleep(delay);
+            // ---
+            out.writeBytes(password + '\n');
+
+            response.setLength(0);
+            response.append(inputFromServer.readLine());
+
+            System.out.println(response);
+            // ---
+            TimeUnit.SECONDS.sleep(delay);
+            // ---
+            line = "PASV";
+            out.writeBytes(line + '\n');
+
+            response.setLength(0);
+            do {
+                response.append(inputFromServer.readLine());
+
+                if (response.toString().indexOf("227") == 0) {
+                    fileTransfer = new FileTransfer(response.toString());
+                }
+            } while (inputFromServer.ready());
+
+            System.out.println(response);
+            // ---
+            TimeUnit.SECONDS.sleep(delay);
+            // ---
+            line = "CWD /upload";
+            out.writeBytes(line + '\n');
+
+            response.setLength(0);
+            response.append(inputFromServer.readLine());
+
+            System.out.println(response);
+            // ---
+            TimeUnit.SECONDS.sleep(delay);
+            // ---
+            line = "STOR File.txt";
+
+            out.writeBytes(line + '\n');
+
+            TimeUnit.SECONDS.sleep(delay);
+
+            response.setLength(0);
+            do {
+                response.append(inputFromServer.readLine());
+                System.out.println(response);
+            } while (inputFromServer.ready());
+
+
+            if (response.toString().indexOf("150") == 0) {
+                fileTransfer.uploadFile();
+            }
+
+            response.setLength(0);
+            do {
+                response.append(inputFromServer.readLine());
+                System.out.println(response);
+            } while (inputFromServer.ready());
+
+            TimeUnit.SECONDS.sleep(delay);
+            // ---
+            line = "QUIT";
+            out.writeBytes(line + '\n');
+
+            response.setLength(0);
+            do {
+                response.append(inputFromServer.readLine());
+                System.out.println(response);
+            } while (inputFromServer.ready());
+
+            System.out.println(response);
 
 
         } catch(IOException i) {
