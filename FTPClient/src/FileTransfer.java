@@ -42,7 +42,10 @@ public class FileTransfer {
 
             inputStreamReader.close();
             System.out.println("Read " + total + " bytes");
-            System.out.println(file.toString());
+
+            PrintWriter writer = new PrintWriter("DownloadedFile.txt");
+            writer.println(file.toString());
+            writer.close();
         }
         catch(FileNotFoundException ex) {
             System.out.println("Unable to open file '" + socket.getInputStream() + "'");
