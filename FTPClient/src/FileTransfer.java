@@ -9,7 +9,7 @@ public class FileTransfer {
     public void uploadFile() {
         try {
             out = new DataOutputStream(socket.getOutputStream());
-            File file = new File("/src/File.txt");
+            File file = new File("File.txt");
             BufferedReader fileReader = new BufferedReader(new FileReader(file));
             StringBuilder sb = new StringBuilder();
 

@@ -113,7 +113,7 @@ public class Client
                 inputFromUser.close();
                 out.close();
                 socket.close();
-                System.out.println("Close");
+                System.out.println("Connection closed");
             }
             catch(IOException i)
             {
@@ -213,40 +213,22 @@ public class Client
                 fileTransfer.uploadFile();
             }
 
-            response.setLength(0);
-            do {
-                response.append(inputFromServer.readLine());
-                System.out.println(response);
-            } while (inputFromServer.ready());
+            System.out.println("File upload complete.");
 
-            TimeUnit.SECONDS.sleep(delay);
-            // ---
-            line = "QUIT";
-            out.writeBytes(line + '\n');
-
-            response.setLength(0);
-            do {
-                response.append(inputFromServer.readLine());
-                System.out.println(response);
-            } while (inputFromServer.ready());
-
-            System.out.println(response);
+            try
+            {
+                inputFromUser.close();
+                out.close();
+                socket.close();
+                System.out.println("Connection closed");
+            }
+            catch(IOException i)
+            {
+                System.out.println(i);
+            }
 
 
         } catch(IOException i) {
-            System.out.println(i);
-        }
-
-
-        try
-        {
-            inputFromUser.close();
-            out.close();
-            socket.close();
-            System.out.println("Close");
-        }
-        catch(IOException i)
-        {
             System.out.println(i);
         }
     }
