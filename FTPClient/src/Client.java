@@ -47,6 +47,7 @@ public class Client
             } while (inputFromServer.ready());
 
             out.writeBytes(username + '\n');
+            System.out.println(username);
 
             response.setLength(0);
             response.append(inputFromServer.readLine());
@@ -56,6 +57,7 @@ public class Client
             TimeUnit.SECONDS.sleep(delay);
             // ---
             out.writeBytes(password + '\n');
+            System.out.println(password);
 
             response.setLength(0);
             response.append(inputFromServer.readLine());
@@ -66,6 +68,7 @@ public class Client
             // ---
             line = "PASV";
             out.writeBytes(line + '\n');
+            System.out.println(line);
 
             response.setLength(0);
             do {
@@ -82,6 +85,7 @@ public class Client
             // ---
             line = "RETR 1KB.zip";
             out.writeBytes(line + '\n');
+            System.out.println(line);
 
             response.setLength(0);
             do {
@@ -98,6 +102,7 @@ public class Client
             // ---
             line = "QUIT";
             out.writeBytes(line + '\n');
+            System.out.println(line);
 
             response.setLength(0);
             do {
@@ -153,6 +158,7 @@ public class Client
             } while (inputFromServer.ready());
 
             out.writeBytes(username + '\n');
+            System.out.println(username);
 
             response.setLength(0);
             response.append(inputFromServer.readLine());
@@ -162,6 +168,7 @@ public class Client
             TimeUnit.SECONDS.sleep(delay);
             // ---
             out.writeBytes(password + '\n');
+            System.out.println(password);
 
             response.setLength(0);
             response.append(inputFromServer.readLine());
@@ -172,6 +179,7 @@ public class Client
             // ---
             line = "PASV";
             out.writeBytes(line + '\n');
+            System.out.println(line);
 
             response.setLength(0);
             do {
@@ -188,6 +196,7 @@ public class Client
             // ---
             line = "CWD /upload";
             out.writeBytes(line + '\n');
+            System.out.println(line);
 
             response.setLength(0);
             response.append(inputFromServer.readLine());
@@ -199,6 +208,7 @@ public class Client
             line = "STOR File.txt";
 
             out.writeBytes(line + '\n');
+            System.out.println(line);
 
             TimeUnit.SECONDS.sleep(delay);
 
