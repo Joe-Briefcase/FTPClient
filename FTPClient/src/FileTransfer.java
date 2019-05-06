@@ -87,10 +87,6 @@ public class FileTransfer {
         port2 = Integer.parseInt(strings2[1]);
         portFinal = port1 * 256 + port2;
 
-        System.out.println(sbIP.toString());
-        System.out.println(sbPort.toString());
-        System.out.println(port1 + " " + port2 + " " + portFinal);
-
         try {
             socket = new Socket(sbIP.toString(), portFinal);
             System.out.println("Connected to File Transfer");
